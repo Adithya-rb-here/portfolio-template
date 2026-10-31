@@ -1,18 +1,140 @@
-const $ = (id) => document.getElementById(id);
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g,
-    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const safe = (u) => (/^https?:\/\//i.test(u) ? u : '#');
+// ==========================================
+// ADITHYA'S PORTFOLIO SCRIPT
+// ==========================================
 
-fetch('profile.json').then((r) => r.json()).then((p) => {
-    document.title = `${p.name} | Portfolio`;
-    $('name').textContent = p.name;
-    $('tagline').textContent = p.tagline;
-    $('bio').textContent = p.bio;
-    $('skills').innerHTML = (p.skills || []).map((s) => `<li>${esc(s)}</li>`).join('');
-    $('projects').innerHTML = (p.projects || []).map((x) =>
-        `<div class="card"><h3>${esc(x.title)}</h3><p>${esc(x.desc)}</p>` +
-        `<a href="${safe(x.link)}" target="_blank" rel="noopener">View project</a></div>`).join('');
-    $('links').innerHTML = Object.entries(p.links || {}).map(([k, v]) =>
-        `<a href="${safe(v)}" target="_blank" rel="noopener">${esc(k)}</a>`).join('');
-    $('footer').textContent = `\u00A9 ${new Date().getFullYear()} ${p.name}`;
-});
+const $ = (id) => document.getElementById(id);
+
+const esc = (value) => {
+    return String(value ?? "").replace(/[&<>"']/g, (char) => {
+        const entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        };
+
+        return entities[char];
+    });
+};
+
+const safeUrl = (url) => {
+    try {
+        const parsed = new URL(url);
+
+        if (
+            parsed.protocol === "https:" ||
+            parsed.protocol === "http:"
+        ) {
+            return parsed.href;
+        }
+
+        return "#";
+    } catch {
+        return "#";
+    }
+};
+
+// ==========================================
+// LOAD PORTFOLIO
+// ==========================================
+
+async function loadPortfolio() {
+
+    try {
+
+        const response = await fetch("./profile.json");
+
+        if (!response.ok) {
+            throw new Error(
+                "Could not load profile.json: " + response.status
+            );
+        }
+
+        const profile = await response.json();
+
+        // Website title
+        document.title = profile.name + " | Portfolio";
+
+        // Hero
+        $("name").textContent = profile.name || "";
+        $("tagline").textContent = profile.tagline || "";
+
+        // About
+        $("bio").textContent = profile.bio || "";
+
+        // Skills
+        $("skills").innerHTML = (profile.skills || [])
+            .map((skill) => {
+                return `<li>${esc(skill)}</li>`;
+            })
+            .join("");
+
+        // Projects
+        $("projects").innerHTML = (profile.projects || [])
+            .map((project) => {
+                return `
+                    <div class="card">
+
+                        <h3>${esc(project.title)}</h3>
+
+                        <p>${esc(project.desc)}</p>
+
+                        <a
+                            href="${esc(safeUrl(project.link))}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Project ↗
+                        </a>
+
+                    </div>
+                `;
+            })
+            .join("");
+
+        // Social links
+        $("links").innerHTML = Object.entries(
+            profile.links || {}
+        )
+            .map(([name, url]) => {
+                return `
+                    <a
+                        href="${esc(safeUrl(url))}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ${esc(name)}
+                    </a>
+                `;
+            })
+            .join("");
+
+        // Footer
+        $("footer").textContent =
+            "© " + new Date().getFullYear() +
+            " " + profile.name;
+
+        console.log("Portfolio loaded successfully!");
+
+    } catch (error) {
+
+        console.error("Portfolio error:", error);
+
+        $("projects").innerHTML = `
+            <p>
+                Unable to load portfolio content.
+                Please check profile.json.
+            </p>
+        `;
+    }
+}
+
+// ==========================================
+// START
+// ==========================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadPortfolio
+);

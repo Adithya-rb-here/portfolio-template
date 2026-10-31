@@ -1,6 +1,6 @@
 {
-    "name": "Adithya R B",
-    "tagline": "Java Developer | Building Interactive Games and Projects",
+"name": "Adithya R B",
+"tagline": "Aspiring Software Developer | Computer Engineering Student | Exploring Ideas Through Code",
     "bio": "I am a developer interested in Java programming, game development, and building interactive applications. I contributed in developing Era Escape, a Java Swing-based escape room game featuring multiple levels, puzzles, hints, timers, and a global lives system. I enjoy learning new technologies and turning creative ideas into working projects.",
     "skills": [
         "Java",
@@ -18,7 +18,10 @@
             "link": "https://github.com/amrinchrissj/EscapeRoomPuzzle.git"
         }
     ],
-    "links": {
-        "github": "https://github.com/Adithya-rb-here"
-    }
+    
+"links": {
+    "github": "https://github.com/Adithya-rb-here",
+    "linkedin": "https://www.linkedin.com/in/adithya-r-b-66860737a/"
+}
+
 }
