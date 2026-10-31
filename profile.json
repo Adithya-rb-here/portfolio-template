@@ -1,19 +1,24 @@
 {
-    "name": "Your Name",
-    "tagline": "Your one-line introduction",
-    "bio": "Write 2 or 3 sentences about yourself.",
+    "name": "Adithya R B",
+    "tagline": "Java Developer | Building Interactive Games and Projects",
+    "bio": "I am a developer interested in Java programming, game development, and building interactive applications. I contributed in developing Era Escape, a Java Swing-based escape room game featuring multiple levels, puzzles, hints, timers, and a global lives system. I enjoy learning new technologies and turning creative ideas into working projects.",
     "skills": [
+        "Java",
+        "Java Swing",
+        "Object-Oriented Programming",
         "Git",
-        "HTML"
+        "HTML",
+        "CSS",
+        "JavaScript"
     ],
     "projects": [
         {
-            "title": "My first project",
-            "desc": "What it does.",
-            "link": "https://github.com/yourname"
+            "title": "Era Escape",
+            "desc": "A Java Swing-based escape room puzzle game featuring multiple levels, challenging puzzles, hints, timers, and a global 3-life system with life regeneration. Level 7 takes players into Ancient Greece to solve the mysteries of the Lost Temple.",
+            "link": "https://github.com/amrinchrissj/EscapeRoomPuzzle.git"
         }
     ],
     "links": {
-        "github": "https://github.com/yourname"
+        "github": "https://github.com/Adithya-rb-here"
     }
 }
